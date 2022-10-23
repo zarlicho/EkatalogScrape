@@ -25,13 +25,12 @@ outSheet.write("E1","Detail")
 opt = Options()
 opt.add_argument('--headless')
 opt.add_argument('--disable-gpu')
-# driver = webdriver.Chrome(executable_path="C:\\Users\\Diva Creative\\Downloads\\Compressed\chromedriver.exe", chrome_options=opt)
-# driver =webdriver.Chrome(ChromeDriverManager().install(), chrome_options=opt)
-driver =webdriver.Chrome(ChromeDriverManager().install())
+driver =webdriver.Chrome(ChromeDriverManager().install(), chrome_options=opt)
+# driver =webdriver.Chrome(ChromeDriverManager().install())
 actions = ActionChains(driver)
 
 row = len(df.index)
-nilai = row
+nilai = 0
 driver.get("https://e-katalog.lkpp.go.id/pengumuman")
 time.sleep(5)
 for j in range(10):
@@ -41,7 +40,6 @@ for j in range(10):
         # print(katalog.text)
         spliter = katalog.text
         Produk = spliter.split("Etalase Produk :")
-        # Produks = spliter.split("Etalase Produk :",)
         tglM = spliter.split("Tanggal Mulai:")
         tglA = spliter.split("Tanggal Akhir:")
         a = tglM[1]
@@ -50,9 +48,7 @@ for j in range(10):
         x = b.split("Tanggal Akhir:")[0]
         y = x.split("Lokal")[0]
         z = y.split("Detail")[0]
-        # print(Produk[0])
         print(Produk[0])
-        # print(nilai)
         outSheet.write(nilai+1,0,Produk[0])
         outSheet.write(nilai+1,1,c.split("Tanggal Mulai:")[0])
         outSheet.write(nilai+1,2,a.split("Tanggal Akhir:")[0])
@@ -62,4 +58,3 @@ for j in range(10):
     time.sleep(3)
 print(outWorkbook)
 outWorkbook.close()
-    # /html/body/div[2]/div[3]/div[1]/div[1]/div[2]/div/div[2]/div/div[1]/ul/li[12]/a
